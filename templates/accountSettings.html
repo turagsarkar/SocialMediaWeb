@@ -1,0 +1,121 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'setting.css' %}" />
+    <script
+      src="https://kit.fontawesome.com/a26c7d01cd.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Account Settings</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+          <h2 class="h3 mb-4 page-title">Account Settings/<a href="/profile/{{user_profile.username}}">{{user_profile.username}}</a></h2>
+          <div class="my-4">
+            
+            <form  action="" method="POST" enctype="multipart/form-data">
+               {% csrf_token %}
+              <div class="row mt-5 align-items-center">
+                <div class="col-md-5 text-center mb-5">
+                  
+                    <div class="avatar avatar-xl">
+                      <img
+                        src="{{user_profile.profileimg.url}}"
+                        alt="..."
+                        class="avatar-img rounded-circle"
+                      />
+                    </div>
+                    <br>
+                    <div class="in">
+                    <label for="image">Select your profile image:</label>
+                    <input type="file" name="image" value ="{{user_profile.profileimg.url}}" placeholder="Upload" class="input"/>
+                    </div>
+                </div>
+                <div class="col">
+                  <div class="row align-items-center">
+                    <div class="col-md-7">
+                      <h4 class="mb-1">Hello {{user_profile.username}}</h4>
+                      <p class="small mb-3">
+                        <span class="badge badge-dark">{{user_profile.country}}</span>
+                      </p>
+                    </div>
+                  </div>
+                 
+              </div>
+              <hr class="my-4" />
+              
+    
+   <div class="l_part">
+      <div class="in">
+        <label for="firstname">First Name</label>
+        <br>
+          <input
+            type="name"
+            name="firstname"
+            class="input"
+            value="{{user_profile.firstname}}"
+          />
+      </div>
+       <div class="in">
+          <label for="Last Name">Last name</label>
+        <br>
+         <input
+            type="text"
+            name="lastname"
+            class="input"
+            value="{{user_profile.lastname}}"
+          />
+      </div>
+      <div class="in">
+          <label for="country">Country</label>
+          <br>
+          <input type="text" name="country" class="input" value="{{user_profile.country}}"  >
+      </div>
+       
+       <div class="in">
+          <label for="gender"> Change you gender:(Already Selected {{user_profile.gender}})</label>
+          <br>
+           <select class="input" name="gender">
+          <option  class="input" name = "gender" value="Male">Male</option>
+	        <option class="input" name = "gender" value="Female">Female</option>
+            
+</select>
+      </div>
+      <div class="in">
+          <label for="dateofbirth">Date of Birth</label>
+          <br>
+          <input type="date" class="input" name="dateofbirth" value="{{user_profile.dob|date:"Y-m-d"}}" required />
+      </div>
+      <div class="in">
+          <a class="butn" href="{% url 'changePassword' %}">
+        Change Password <i class="fa-solid fa-lock fa-l"></i
+      ></a>
+      </div>
+      <div class="in2">
+          <label for="bio">BIO</label>
+          <br>
+          <input type="text" name="bio" class="input2" value="{{user_profile.bio}}">
+      </div>
+          
+          <br />
+          <br />
+          <!-- <button type="submit" value="Sign up" class="btn" /> -->
+        </div>       
+              <hr class="my-4" />
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% comment %} <script src="./js/bootstrap.js"></script> {% endcomment %}
+  </body>
+</html>

@@ -1,0 +1,148 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FAI</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+  </head>
+
+  <body>
+    <nav>
+      <div class="nav1">
+        <img
+          src="{% static 'image/logo.PNG' %}"
+          class="logo"
+          alt="Image not found"
+        />
+        <ul>
+          <!-- <li><img src="image/notification.png" alt="Notification logo"></li> -->
+          <!-- <li><img src="image/message.png" alt="Inbox logo"></li> -->
+          <li>
+            <button class="btn">
+              <img src="{% static 'image/home-edit.png' %}" alt="" />
+            </button>
+          </li>
+          <li>
+            <button class="btn">
+              <img src="{% static 'image/notification.png' %}" alt="" />
+            </button>
+          </li>
+          <li>
+            <button class="btn">
+              <img src="{% static 'image/message.png' %}" alt="" />
+            </button>
+          </li>
+          <li>
+            <button class="btn">
+              <img src="{% static 'image/video.png' %}" alt="" />
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="nav2">
+        <div class="search">
+          <img src="{% static 'image/search.png' %}" alt="logo not found" />
+          <input type="text" placeholder="search" />
+        </div>
+        <div class="usericon">
+          <!-- profilepic add  input from database-->
+          <a href="{% url 'profile' %}"
+            ><img
+              src="{{user_profile.profileimg.url}}"
+              alt="profile pic not found"
+          /></a>
+          <!-- <img src="Image/profilepic.jpg" alt="profile pic not found"> -->
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="leftbar">
+        <div class="implink">
+          <a href="#"
+            ><img
+              src="{% static 'image/news.png' %}"
+              alt="img not found"
+            />Latest News</a
+          >
+          <a href="#"
+            ><img
+              src="{% static 'image/friends.png' %}"
+              alt="img not found"
+            />Followers</a
+          >
+          <a href="#"
+            ><img
+              src="{% static 'image/group.png' %}"
+              alt="img not found"
+            />Groups</a
+          >
+          <a href="#"
+            ><img
+              src="{% static 'image/watch.png' %}"
+              alt="img not found"
+            />Watch Video</a
+          >
+          <a href="#">...See more</a>
+        </div>
+        <!-- change later for setting log out -->
+        <div class="shortcut">
+          <p>Others</p>
+          <a href="#"
+            ><img
+              src="{% static 'image/setting.png' %}"
+              alt="image not found "
+            />Settings & Privacy</a
+          >
+          <a href="#"
+            ><img
+              src="{% static 'image/help.png' %}"
+              alt="iamge not found"
+            />Help & Support</a
+          >
+          <a href="#"
+            ><img
+              src="{% static 'image/feedback.png' %}"
+              alt="image not found"
+            />Feedback</a
+          >
+          <a href="{% url 'logout' %}"
+            ><img
+              src="{% static 'image/logout.png' %}"
+              alt="image not found"
+            />Logout</a
+          >
+        </div>
+      </div>
+
+      <div class="feed">
+        <!-- newsfeed post option stroies -->
+      </div>
+
+      <div class="rightbar">
+        <div class="title">
+          <h4>Events</h4>
+          <a href="#">...See All</a>
+        </div>
+
+        <div class="event">
+          <div class="leftevent">
+            <h3>Birthdays</h3>
+            <a href="#">...See More</a>
+          </div>
+        </div>
+        <div class="event">
+          <div class="leftevent">
+            <h3>Contacts</h3>
+            <!-- Query contacts from database  -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

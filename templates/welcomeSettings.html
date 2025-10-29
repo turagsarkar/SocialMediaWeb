@@ -1,0 +1,122 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'setting.css' %}" />
+    <title>Account Settings</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+          <h2 class="h3 mb-4 page-title">Account Settings</h2>
+          <div class="my-4">
+            
+            <form  action="" method="POST" enctype="multipart/form-data">
+               {% csrf_token %}
+              <div class="row mt-5 align-items-center">
+                <div class="col-md-5 text-center mb-5">
+                  
+                    <div class="avatar avatar-xl">
+                      <img
+                        src="{{user_profile.profileimg.url}}"
+                        alt="..."
+                        class="avatar-img rounded-circle"
+                      />
+                    </div>
+                    <br>
+                    <div class="in">
+                    <label for="image">Select your profile image:</label>
+                    <input type="file" name="image" value ="{{user_profile.profileimg.url}}" placeholder="Upload" class="input"/>
+                    </div>
+                </div>
+                <div class="col">
+                  <div class="row align-items-center">
+                    <div class="col-md-7">
+                      <h4 class="mb-1">Welcome {{user_profile.username}}</h4>
+                      <p class="small mb-3">
+                        <span class="badge badge-dark"></span>
+                      </p>
+                    </div>
+                  </div>
+                 
+              </div>
+              <hr class="my-4" />
+              
+    
+   <div class="l_part">
+      <div class="in">
+        <label for="firstname">First Name</label>
+        <br>
+          <input
+            type="name"
+            name="firstname"
+            class="input"
+            value="{{user_profile.firstname}}"
+            required
+          />
+      </div>
+       <div class="in">
+          <label for="Last Name">Last name</label>
+        <br>
+         <input
+            type="text"
+            name="lastname"
+            class="input"
+            value="{{user_profile.lastname}}"
+            required
+          />
+      </div>
+      <div class="in">
+          <label for="country">Country</label>
+          <br>
+          <input type="text" name="country" class="input" value="{{user_profile.location}}"  required>
+      </div>
+       
+       <div class="in">
+          <label for="gender"> Select you gender:</label>
+          <br>
+           <select class="input" name="gender">
+          <option  class="input" name = "gender" value="Male">Male</option>
+	        <option class="input" name = "gender" value="Female">Female</option>
+</select>
+      </div>
+      <div class="in">
+          <label for="dateofbirth">Date of Birth</label>
+          <br>
+          <input type="date" class="input" name="dateofbirth" value="{{user_profile.dob}}" required />
+      </div>
+      <div class="in2">
+          <label for="bio">BIO</label>
+          <br>
+          <input type="text" name="bio" class="input2" value="{{user_profile.bio}}">
+      </div>
+       {% comment %} <div class="in">
+                <label>Gender</label>
+                <br>
+                <select class="input">
+                  <option disabled selected>Select gender</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                </select>
+          </div> {% endcomment %}
+          
+          <br />
+          <br />
+          <!-- <button type="submit" value="Sign up" class="btn" /> -->
+        </div>       
+              <hr class="my-4" />
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% comment %} <script src="./js/bootstrap.js"></script> {% endcomment %}
+  </body>
+</html>

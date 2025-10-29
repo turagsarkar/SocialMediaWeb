@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'about.css' %}" />
+    <script
+      src="https://kit.fontawesome.com/a26c7d01cd.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>About</title>
+  </head>
+  <body>
+    <nav>
+      <div class="nav0">
+        <i class="fa-solid fa-f change-color fa-2xl"></i>
+        <i class="fa-solid fa-a change-color fa-xl"></i>
+        <i class="fa-solid fa-i-cursor change-color fa-xl"></i>
+      </div>
+      <div class="nav1">
+        <ul>
+          <li>
+            <a href="{% url 'home' %}">
+              <button class="btn">
+                <img src="{% static 'image/home-edit.png' %}" alt="" />
+              </button>
+            </a>
+          </li>
+          <li>
+            <a href="/notification">
+              <button class="btn">
+                <img src="{% static 'image/notification.png' %}" alt="" />
+              </button>
+            </a>
+          </li>
+          <li>
+            <button class="btn">
+              <img src="{% static 'image/message.png' %}" alt="" />
+            </button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="div1">
+      <div class="divx">
+        About @<a href="/profile/{{user_profile.username}}"
+          >{{user_profile.username}}</a
+        >
+      </div>
+    </div>
+
+    <div class="div2">
+      <div class="bor">Profile Pic:</div>
+      <div class="divpro">
+        <img src="{{user_profile.profileimg.url}}" alt="" class="bgimg" />
+      </div>
+    </div>
+    <div class="div3">
+      <div class="bor">Bio:</div>
+      <div class="divbio">{{user_profile.bio}}</div>
+    </div>
+    <div class="common">
+      <div class="bor">First Name:</div>
+      <div class="det1">{{user_profile.firstname}}</div>
+    </div>
+    <div class="common">
+      <div class="bor">Last Name:</div>
+      <div class="det1">{{user_profile.lastname}}</div>
+    </div>
+    <div class="common">
+      <div class="bor">Gender:</div>
+      <div class="det1">{{user_profile.gender}}</div>
+    </div>
+    <div class="common">
+      <div class="bor">Works At:</div>
+      <div class="det1">None</div>
+    </div>
+    <div class="common">
+      <div class="bor">Date of Birth:</div>
+      <div class="det1">{{user_profile.dob}}</div>
+    </div>
+    <div class="common">
+      <div class="bor">Email:</div>
+      <div class="det1">{{user_profile.email}}</div>
+    </div>
+    <div class="common">
+      <div class="bor">Address:</div>
+      <div class="det1">{{user_profile.country}}</div>
+    </div>
+    <div class="common">
+      <div class="bor">Joined Fai At:</div>
+      <div class="det1">{{user_profile.created_at}}</div>
+    </div>
+    {% if request.user.username == user_profile.username%}
+    <div class="sub">
+      <a class="butn" href="{% url 'accountSettings' %}">
+        Account Settings <i class="fa-solid fa-screwdriver-wrench"></i
+      ></a>
+    </div>
+    {% endif %}
+  </body>
+</html>

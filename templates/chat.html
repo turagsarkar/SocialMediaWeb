@@ -1,0 +1,192 @@
+{% load static %} {% load post_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'index.css' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/a26c7d01cd.js"
+      crossorigin="anonymous"
+    ></script>
+</head>
+
+<body>
+    <main>
+     <header>
+        <div class ="title">
+            <img src="{% static 'icons/logo.svg' %}" width="35px">
+            <h1> <a href='home'>FAI</a> CHAT BOX </h1>
+
+        </div>
+        <button type="button" onclick="show_hide()">
+            <img src="icons/hamburger.svg" width="50px">
+        </button>
+        
+     </header>
+     <div class="container">
+        <div class="users-window">
+            <div class="users-head">
+                <h3>People</h3>
+                <h4>{{profile_obj.following}}</h4>
+            </div>
+            <div class="users-list">
+                {% for user in friendlist %}
+                <p><button class="btn-name" onclick="event.preventDefault(); openUser('{{user.friend}}')"><p>{{user.friend}}</p></button></p>
+                {% endfor %}
+
+            </div>
+        </div>
+        <div class="chat-window">
+            <div class="chats" id="viewchat">
+                {% comment %} <div class="user-join" id="chatusername">
+                </div> {% endcomment %}
+                {% comment %} <div class="message incoming">
+                    <h5 id="message-username"></h5>
+                    <p id="message" ></p>
+                    
+                </div>
+                <div class="message incoming">
+                    <h5 id="messageusername">Turag</h5>
+                    <p id="message" >Hey rijvi bro</p>
+                    <span class="date">Send at 2a.m</span>
+                </div> 
+                <div class="message outgoing">
+                    <h5 id="messageusername">Turag</h5>
+                    <p id="message" >Hey rijvi bro fjhdgfudyuf dfnbjhdgfdf djfgvuhdgfuyd fhjgdhjgfd fhjdgfhgduygfhd nbfvdhvfgdhgf dbnfvgdvghfd fvdghvfd fbdvghfvd fbdvfg</p>
+                    <span class="date">Send at 2a.m</span>
+                </div> 
+                <div class="message incoming">
+                    <h5 id="messageusername">Turag</h5>
+                    <p id="message" >Incoming</p>
+                    <span class="date">Send at 2a.m</span>
+                </div> {% endcomment %}
+            </div>
+            <form method="POST" id="form">
+            <div class="user-input hideform" id="message-form">
+                {% csrf_token %}
+                <input type="text" id="text" placeholder="Type your message ...">
+                <input type="hidden" id="name" value="">               
+                <button type="submit" onclick="event.preventDefault(); sendMessage('username')">SEND</button>
+            </div>
+        </form>
+
+        </div>
+    </main>
+    <script>
+        let current=0
+        let open=0
+
+        var uwindow=Document.querySelector('.users-window');
+        function show_hide(){
+            if(uwindow.style.display=="block"){
+                uwindow.style.display="none";
+            }
+            else{
+                uwindow.style.display="block";
+            }
+        }
+
+        function sendMessage(username){
+            console.log("HEllo")
+             $.ajax({
+                   type: 'POST',
+                   url : "{% url 'sendMessage' %}",
+                   data: {
+                        text:$('#text').val(),
+                        name:$('#name').val(),
+                        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                    },
+                   success: function(response){
+                   console.log(response);                                  
+                   },
+                 error: function(response){
+                    console.log(response);
+                 }
+               });
+               cmd="form"
+               document.getElementById(cmd).reset(); 
+
+        }
+
+        function openUser(username){
+            if(current>0){
+               clearInterval(current);
+               open=0
+            }
+           openMessage(username);
+        }
+
+        function openMessage(username){
+            var element = document.getElementById("message-form");
+            element.classList.add("showform");
+            document.getElementById('name').value=username;
+            current = setInterval(function(){
+                $.ajax({
+                   type: 'GET',
+                   url : "{% url 'getMessage' %}",
+                   data: {'id':username},
+                   success: function(response){                    
+                    $("#viewchat").empty(); 
+                    console.log(response)                  
+                      for (var message in response.messages){
+                        
+                        addMessage(response.messages[message].text,response.messages[message].from_username,response.messages[message].sends_at)
+                      }
+                      if(open==0){
+                         var objDiv = document.getElementById("viewchat");
+                         objDiv.scrollTop = objDiv.scrollHeight;
+                         open=1;
+                      }
+                      
+                   
+                   },
+                 error: function(response){
+                    console.log(response);
+                 }
+               });
+        },1000);
+        }
+ 
+        function addMessage(text,username,time){
+             
+             var dt  = new Date(time);
+             date = dt.toString().substring(0,25);
+             var profile_username = "{{profile_obj.username}}"
+             
+             if (profile_username==username){
+                  var temp = "<div class='message outgoing'><h4 id='message-username'>"+"You"+"</h4><p id='message' >"+text+"</p><span class='date'>Send at "+date+"</span></div>"
+             }
+             else{
+                 var temp = "<div class='message incoming'><h4 id='message-username'>"+username+"</h4><p id='message' >"+text+"</p><span class='date'>Send at "+date+"</span></div>"
+             }
+             
+             $("#viewchat").append(temp);
+             
+        }
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+</body>
+</html>
+
+     

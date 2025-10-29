@@ -1,0 +1,93 @@
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'auth.css'  %}" />
+    <title>Signup</title>
+  </head>
+  <body>
+    <div id="wrapper2">
+      <div class="main-content">
+        <div class="header">
+          <h1>FAO</h1>
+          <!-- or LOGo -->
+          <p>Sign up to see photos and videos from your friends.</p>
+          <br />
+        </div>
+        <div>
+          <style>
+            h5{
+              color: red;
+            }
+          </style>
+          {% for message in messages %}
+          <h5>{{message}}</h5>
+           {% endfor %}
+        </div>
+
+        {% comment %} <form action="" method="POST">
+          {% csrf_token %}
+        <div class="l_part">
+          <input
+            type="email"
+            name="email"
+            class="input"
+            placeholder="Email"
+          />
+          
+          <br />
+          <br />
+          <button type="submit" class="btn">Continue</button>
+          <!-- <button type="submit" value="Sign up" class="btn" /> -->
+        </div>
+      </div>
+      <div class="sub-content">
+        <p class="s-part">Have an account? <a href="./signin">Log in</a></p>
+        </form> {% endcomment %}
+      </div>
+    </div>
+  </body>
+</html>
+
+<!-- <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./signup.css" />
+    <title>Sign Up</title>
+  </head>
+  <body>
+    <main>
+      <div class="page">
+        <div class="header">
+          <h1 class="logo">Picturegram</h1>
+          <p>Sign up to see photos and videos from your friends.</p>
+        </div>
+        <div class="container">
+          <form action="">
+            <input type="text" placeholder="Mobile Number or Email" />
+            <input type="text" placeholder="Full Name" />
+            <input type="text" placeholder="Username" />
+            <input type="password" placeholder="Password" />
+            <button>Sign up</button>
+          </form>
+
+          <ul>
+            <li>By signing up, you agree to our</li>
+            <li><a href="">Terms</a></li>
+            <li><a href="">Data Policy</a></li>
+            <li>and</li>
+            <li><a href="">Cookies Policy</a> .</li>
+          </ul>
+        </div>
+      </div>
+      <div class="option">
+        <p>Have an account? <a href="./login.html">Log in</a></p>
+      </div>
+    </main>
+  </body>
+</html> -->
